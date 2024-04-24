@@ -3,7 +3,7 @@ package com.http1dot1.app;
 import com.http1dot1.app.core.server.SimpleServerSocket;
 
 /**
- * Hello world!
+ * MainApp
  *
  */
 public class MainApp {

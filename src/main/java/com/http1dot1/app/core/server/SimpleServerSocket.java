@@ -34,7 +34,7 @@ public class SimpleServerSocket extends Thread {
         this.interrupt();
     }
 
-    // @Override
+    @Override
     public void run () {
         this.running = true;
         while (this.running) {

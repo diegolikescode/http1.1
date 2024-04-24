@@ -37,7 +37,6 @@ public class HandleExecutor extends Thread {
 
             SimpleHttpResponse response = handler.handle(this.request, new SimpleHttpResponse());
 
-            // TODO: response body length as the length
             response.addHeader("Content-Length", String.valueOf(response.getBody().length()));
 
             // TODO: deal with response shit
