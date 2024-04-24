@@ -1,5 +1,6 @@
 package com.http1dot1.app.core.response;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -11,6 +12,10 @@ public class SimpleHttpResponse {
     private String statusMessage;
     private Map<String, String> headers;
     private String body;
+
+    public SimpleHttpResponse() {
+        this.headers = new HashMap<>();
+    }
 
     public SimpleHttpResponse(int statusCode, String statusMessage, 
         Map<String, String> headers, String body) {
@@ -42,6 +47,14 @@ public class SimpleHttpResponse {
 
     public void setHeaders(Map<String, String> headers) {
         this.headers = headers;
+    }
+
+    public String getHeaderVal(String key) {
+        return this.headers.get(key);
+    }
+
+    public void addHeader(String key, String value) {
+        this.headers.put(key, value);
     }
 
     public String getBody() {

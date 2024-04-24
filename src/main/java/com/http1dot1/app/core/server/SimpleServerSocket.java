@@ -1,11 +1,10 @@
 package com.http1dot1.app.core.server;
 
 import java.io.IOException;
-import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import com.http1dot1.app.core.request.SimpleRequestHandler;
+import com.http1dot1.app.core.sample.HandlerExample;
 
 /**
  * SimpleServerSocket
@@ -43,18 +42,11 @@ public class SimpleServerSocket extends Thread {
                 System.out.println("Listening for connection");
 
                 Socket s = serverSocket.accept();
-                SimpleRequestHandler requestHandler = new SimpleRequestHandler(s);
-                requestHandler.start();
+                HandleExecutor executor = new HandleExecutor(s, new HandlerExample());
+                executor.start();
             } catch (IOException ioe) {
                 ioe.printStackTrace();
             }
         }
     }
-}
-
-// config this better for logging
-enum ServerStates {
-    STARTED_THREAD,
-    STARTED_SERVER,
-
 }
