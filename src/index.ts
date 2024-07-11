@@ -1,1 +1,1 @@
-console.log("ARCH BTW");
+console.log("STARTS");
