@@ -1,5 +1,5 @@
 do:
-	npm run dev
+	go run ./cmd/main.go
 
 up:
 	docker build -t applica-corp .
