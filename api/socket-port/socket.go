@@ -7,7 +7,7 @@ import (
 )
 
 func StartServer() {
-	port := ":6969"
+	port := ":3000"
 	ln, err := net.Listen("tcp", port)
 	if err != nil {
 		fmt.Println("Socket connection error", err)
@@ -29,5 +29,20 @@ func StartServer() {
 func handleConn(c net.Conn) {
 	defer c.Close()
 
-	c.Write([]byte("Hello from TCP\n"))
+	buf := make([]byte, 1024)
+	n, er := c.Read(buf)
+	if er != nil {
+		panic("FUCK")
+	}
+
+	incomingData := string(buf[:n])
+	fmt.Println("\n" + incomingData)
+
+	response := "HTTP/1.1 200 OK\r\n" +
+		"Content-Type: text/plain\r\n" +
+		"Content-Length: 13\r\n" +
+		"\r\n" +
+		"Hello, World!"
+
+	c.Write([]byte(response))
 }
