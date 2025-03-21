@@ -2,21 +2,16 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"os"
 )
 
-func main() {
-	// socketport.StartServer()
-	file, err := os.Open("messages.txt")
-	if err != nil {
-		os.Exit(1)
-	}
-
+func getLinesChannel(f io.ReadCloser) <-chan string {
 	str := ""
 	extra := ""
 	for {
 		buff := make([]byte, 8)
-		cout, err := file.Read(buff)
+		cout, err := f.Read(buff)
 		if err != nil {
 			os.Exit(0)
 		}
@@ -37,9 +32,18 @@ func main() {
 					isNewLine = true
 				}
 			} else {
-				extra += string(cha)
+				<-extra += string(cha)
 			}
 		}
 
 	}
+}
+
+func main() {
+	f, err := os.Open("messages.txt")
+	if err != nil {
+		os.Exit(1)
+	}
+	lines := make(chan string)
+	go getLinesChannel(f)
 }
