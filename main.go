@@ -12,6 +12,8 @@ func main() {
 		os.Exit(1)
 	}
 
+	str := ""
+	extra := ""
 	for {
 		buff := make([]byte, 8)
 		cout, err := file.Read(buff)
@@ -19,6 +21,25 @@ func main() {
 			os.Exit(0)
 		}
 
-		fmt.Printf("read: %s\n", buff[:cout])
+		if extra != "" {
+			str = extra + str
+			extra = ""
+		}
+
+		isNewLine := false
+		for _, cha := range string(buff[:cout]) {
+			if !isNewLine {
+				if cha != '\n' {
+					str += string(cha)
+				} else {
+					fmt.Printf("read: %s\n", str)
+					str = ""
+					isNewLine = true
+				}
+			} else {
+				extra += string(cha)
+			}
+		}
+
 	}
 }
